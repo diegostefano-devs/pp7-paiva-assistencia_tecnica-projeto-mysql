@@ -1,43 +1,50 @@
-from models.cliente_model import criar_clinte
+from models.cliente_model import criar_clinete
 from repositories.cliente_repository import cadastrar, validar_cpf, listar_clientes, excluir, alterar
 
 def cadastrar_cliente(cpf, nome, telefone):
-    cliente = criar_clinte(cpf, nome, telefone)
-
-    if cliente is None:
-        print("Dados inválidos!")
-        return False
+    if not nome or not nome.strip() or not cpf or not cpf.strip():
+        raise ValueError("Nome e CPF são obrigatórios!")
 
     if validar_cpf(cpf):
-        print("Este CPF já consta no sistema.")
-        return
+        raise ValueError("Este CPF já consta no sistema.")
 
-    resultado = cadastrar(cliente)
+    cliente = criar_clinete(cpf, nome, telefone)
+    if cliente is None:
+        raise ValueError("Dados inválidos para o cliente.")
 
-    if resultado:
-        print("Cliente cadastrado com sucesso.")
-        return True
-
-    print("Não foi possível cadastrar cliente.")
-    return False
+    sucesso = cadastrar(cliente)
+    if not sucesso:
+        raise Exception("Não foi possível cadastrar o cliente no banco de dados.")
+    
+    return True
 
 def clientes():
-    clientes = listar_clientes()
-
-    if not clientes:
-        return None
-    return clientes
+    lista = listar_clientes()
+    return lista if lista else []
 
 def excluir_cliente(cpf):
-    if validar_cpf(cpf):
-        return excluir(cpf)
-
-    print("CPF não consta no banco de dados.")
-    return False
+    if not cpf or not cpf.strip():
+        raise ValueError("Informe o CPF para excluir.")
+    
+    if not validar_cpf(cpf):
+        raise ValueError("CPF não consta no banco de dados.")
+    
+    sucesso = excluir(cpf)
+    if not sucesso:
+        raise Exception("Erro ao excluir o cliente.")
+    return True
 
 def atualizar_cliente(nome, telefone, cpf):
-    if validar_cpf(cpf):
-        return alterar(nome, telefone, cpf)
+    if not cpf or not cpf.strip():
+        raise ValueError("CPF é obrigatório para atualização.")
+    
+    if not validar_cpf(cpf):
+        raise ValueError("CPF não consta no banco de dados.")
+    
+    if not nome or not nome.strip():
+        raise ValueError("O campo 'Nome' não pode ficar vazio.")
 
-    print("CPF não consta no banco de dados.")
-    return
+    sucesso = alterar(nome, telefone, cpf)
+    if not sucesso:
+        raise Exception("Erro ao atualizar o cliente.")
+    return True
