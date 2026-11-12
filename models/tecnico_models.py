@@ -1,16 +1,13 @@
-def criar_tecnico(cpf:str, nome: str, telefone:str):
-    if cpf != 14 or not cpf.isdigt:
-        print("Formato de CPF inválido.")
-        return None
-    
+def criar_tecnico(cpf: str, nome: str, telefone: str):
+    if len(cpf) != 14:
+        raise ValueError("Formato de CPF inválido. Use o padrão 000.000.000-00.")
 
-    if telefone != 14 or not telefone.isdigt:
-            print("Formato de número de telefone inválido.")
-            return None
-
+    if len(telefone) < 10 or len(telefone) > 15:
+        raise ValueError("Formato de número de telefone inválido.")
 
     return {
-         'cpf': cpf,
-         'nome': nome,
-         'telefone': telefone
+        'cpf': cpf,
+        'nome': nome,
+        'telefone': telefone
     }
+
