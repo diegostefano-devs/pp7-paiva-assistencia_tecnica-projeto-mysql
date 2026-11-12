@@ -1,12 +1,20 @@
 def criar_clinte(cpf:str, nome, telefone:str):
 
-    if cpf != 14 or not cpf.isdigit :
-        print("Formato de CPF inválido.")
-        return None
+    if not nome:
+        raise ValueError("Campo obrigatorio")
+
+    if not cpf:
+        raise ValueError("Campo obrigatorio")
+
+    if not telefone:
+        raise ValueError("Campo obrigatorio")
+
+    if (cpf) != 14 or not cpf.isdigit():
+        raise ValueError("Formato de CPF inválido.")
     
-    if telefone != 14 or not telefone.isdigit:
-        print("Formato de número de telefone inválido.")
-        return None
+    if len(telefone) != 14 or not telefone.isdigit():
+        raise ValueError("Formato de número de telefone inválido.")
+        
 
     return {
         "cpf" : cpf,
