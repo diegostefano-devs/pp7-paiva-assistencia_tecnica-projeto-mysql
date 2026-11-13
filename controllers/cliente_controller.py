@@ -1,4 +1,4 @@
-from models.cliente_model import criar_clinete
+from models.cliente_model import criar_cliente
 from repositories.cliente_repository import cadastrar, validar_cpf, listar_clientes, excluir, alterar
 
 def cadastrar_cliente(cpf, nome, telefone):
@@ -8,7 +8,7 @@ def cadastrar_cliente(cpf, nome, telefone):
     if validar_cpf(cpf):
         raise ValueError("Este CPF já consta no sistema.")
 
-    cliente = criar_clinete(cpf, nome, telefone)
+    cliente = criar_cliente(cpf, nome, telefone)
     if cliente is None:
         raise ValueError("Dados inválidos para o cliente.")
 

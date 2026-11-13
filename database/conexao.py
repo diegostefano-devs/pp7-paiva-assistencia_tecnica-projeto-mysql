@@ -5,7 +5,7 @@ CONFIG = {
     "host": 'localhost',
     "port" : 3306,
     "user" : "root",
-    "password" : "040604",
+    "password" : "03141116*Die",
     "database" : "assistencia_tecnica"
 }
 

@@ -12,6 +12,8 @@ def validar_cpf(cpf):
         cursor.close()
         con.close()
 
+     
+
 def cadastrar(cliente):
     con = conectar()
     cursor = con.cursor()

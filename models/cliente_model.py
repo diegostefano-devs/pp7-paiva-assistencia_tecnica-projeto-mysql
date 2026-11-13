@@ -1,4 +1,4 @@
-def criar_clinte(cpf:str, nome, telefone:str):
+def criar_cliente(cpf:str, nome, telefone:str):
 
     if not nome:
         raise ValueError("Campo obrigatorio")
@@ -9,10 +9,10 @@ def criar_clinte(cpf:str, nome, telefone:str):
     if not telefone:
         raise ValueError("Campo obrigatorio")
 
-    if (cpf) != 14 or not cpf.isdigit():
+    if len(cpf) != 14 or not cpf.isdigit:
         raise ValueError("Formato de CPF inválido.")
     
-    if len(telefone) != 14 or not telefone.isdigit():
+    if len(telefone) != 14 or not telefone.isdigit:
         raise ValueError("Formato de número de telefone inválido.")
         
 
