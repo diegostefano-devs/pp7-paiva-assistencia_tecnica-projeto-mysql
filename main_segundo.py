@@ -1,4 +1,4 @@
-from controllers.ordens_controller import abrir_ordem
+from controllers.ordens_controller import abrir_ordem, listar_os_status, finalizar_ordem_de_servico, listar_todas_os
 from controllers.cliente_controller import cadastrar_cliente
 from controllers.itens_ordens_controller import abrir_orcamento
 
@@ -11,6 +11,12 @@ from controllers.itens_ordens_controller import abrir_orcamento
 
 # abrir_ordem(3, "Celular", "Quebrado")
 
-abrir_orcamento(1, 1, 1, 150)
+# finalizar_ordem_de_servico(4, "CONCLUIDA")
 
+resultado = list(listar_todas_os())
+for os in resultado:
+    print(f"ID: {os['id']}, STATUS: {os['status']}")
 
+# resultado = list(listar_os_status("AGUARDANDO APROVA"))
+# for os in resultado:
+#     print(f"ID: {os['id']}, STATUS: {os['status']}")

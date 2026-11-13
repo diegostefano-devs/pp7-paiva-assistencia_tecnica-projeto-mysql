@@ -1,5 +1,23 @@
 from database.conexao import conectar
 
+def validar_os(id_os):
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        sql = "SELECT id FROM ordens_servico WHERE id = %s"
+        cursor.execute(sql, (id_os,))
+        resultado =  cursor.fetchone()
+
+        if not resultado:
+            raise ValueError("OS não encontrada no banco de dados.")
+
+        return resultado['id']
+    finally:
+        cursor.close()
+        con.close()
+
+
+
 def buscar_tec():
     con = conectar()
     cursor = con.cursor()
@@ -70,7 +88,11 @@ def listar_os():
     cursor = con.cursor(dictionary=True)
     try:
         cursor.execute("SELECT * FROM ordens_servico ORDER BY id")
-        return cursor.fetchall()
+        resultado = cursor.fetchall()
+
+        if not resultado:
+            raise ValueError("Não há OS's registradas no banco de dados.")
+        return resultado
     finally:
         cursor.close()
         con.close()
