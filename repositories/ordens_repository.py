@@ -49,3 +49,44 @@ def abrir_os(ordem, id_tecnico):
     finally:
         cursor.close()
         con.close()
+
+def finalizar_os(id_os, status):
+    con = conectar()
+    cursor = con.cursor()
+    try:
+        cursor.execute("UPDATE ordens_servico SET status = %s WHERE id = %s", (status, id_os))
+        con.commit()
+        return cursor.rowcount
+    except Exception as e:
+        con.rollback()
+        raise e
+    finally:
+        cursor.close()
+        con.close()
+
+
+def listar_os():
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM ordens_servico ORDER BY id")
+        return cursor.fetchall()
+    finally:
+        cursor.close()
+        con.close()
+
+def listar_os_status(status):
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM ordens_servico WHERE status = %s ORDER BY id", (status, ))
+        resultado = cursor.fetchall()
+
+        if not resultado:
+            raise ValueError("Sem OS's com esse status.")
+
+        return resultado
+    finally:
+        cursor.close()
+        con.close()
+
