@@ -34,5 +34,5 @@ def criar_peca(nome: str, categoria: str, quantidade: int, estado: str, preco: f
         'categoria': categoria,
         'quantidade': quantidade,
         'estado': estado,
-        'preço': preco
+        'preco': preco
     }

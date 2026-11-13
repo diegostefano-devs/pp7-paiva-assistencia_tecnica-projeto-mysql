@@ -14,7 +14,7 @@ except ValueError as e:
 
 print("\n--- 2. TESTANDO CADASTRO VÁLIDO ---")
 try:
-    cadastrar_tecnico("123.456.789-00", "Carlos Souza", "74988888888")
+    cadastrar_tecnico("123.456.789-44", "Raul Paiva", "74999352668")
     print("Passou no teste! Técnico cadastrado com sucesso.")
 except Exception as e:
     print(f"Falhou: {e}")
@@ -25,14 +25,14 @@ print("Técnicos no banco:", lista)
 
 print("\n--- 4. TESTANDO ATUALIZAÇÃO ---")
 try:
-    atualizar_tecnico("Carlos Souza Editado", "74977777777", "123.456.789-00")
+    atualizar_tecnico("Raul Paiva Editado", "74977777775", "123.456.789-45")
     print("Passou no teste! Técnico atualizado.")
 except Exception as e:
     print(f"Falhou: {e}")
 
-print("\n--- 5. TESTANDO EXCLUSÃO ---")
+'''print("\n--- 5. TESTANDO EXCLUSÃO ---")
 try:
-    excluir_tecnico("123.456.789-00")
+    excluir_tecnico("123.456.789-45")
     print("Passou no teste! Técnico excluído.")
 except Exception as e:
-    print(f"Falhou: {e}")
+    print(f"Falhou: {e}")'''

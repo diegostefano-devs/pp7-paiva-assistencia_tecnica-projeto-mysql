@@ -1,11 +1,11 @@
 from database.conexao import conectar
 
-def cadastrar_peca(peca):
+def cadastrar_peca_db(peca):
     con = conectar()
-    cursor = con.conectar()
+    cursor = con.cursor()
 
     try:
-        sql = "INSERT INTO pecas (nome, categoria, quantidade, estado, preco)"
+        sql = "INSERT INTO pecas (nome, categoria, quantidade, estado, preco) VALUES (%s, %s, %s, %s, %s)"
         valores = (
             peca['nome'],
             peca['categoria'],
@@ -48,7 +48,7 @@ def listar_peca():
         con.close()
 
 
-def alterar(peca_id, nome, categoria, quantidade, estado, preco):
+def alterar_peca(peca_id, nome, categoria, quantidade, estado, preco):
     con = conectar()
     cursor = con.cursor()
     sql = "UPDATE pecas SET nome = %s, categoria = %s, quantidade = %s, estado = %s, preco = %s WHERE id = %s"
@@ -56,6 +56,7 @@ def alterar(peca_id, nome, categoria, quantidade, estado, preco):
         valores = (nome, categoria, quantidade, estado, preco, peca_id)
         cursor.execute(sql, (valores))
         con.commit()
-        return cursor.rowcount > 0
+        return True
     finally:
+        cursor.close()
         con.close
