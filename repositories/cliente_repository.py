@@ -1,4 +1,6 @@
 from database.conexao import conectar
+from mysql.connector import IntegrityError
+
 
 def validar_cpf(cpf):
     con = conectar()
@@ -27,22 +29,54 @@ def cadastrar(cliente):
         cursor.execute(sql, valores)
         con.commit()
         return cursor.lastrowid
+
+    except IntegrityError:
+        con.rollback()
+        raise ValueError("Este CPF já consta no sistema.")
+    except Exception as erro:
+        con.rollback()
+        raise
     finally:
         cursor.close()
         con.close()
 
 def excluir(cpf):
+    if not validar_cpf(cpf):
+        raise ValueError(f"O CPF {cpf} não consta no banco de dados.")
+    
     con = conectar()
     cursor = con.cursor()
-    sql = "DELETE FROM clientes WHERE cpf = %s"
     try:
+        sql = "DELETE FROM clientes WHERE cpf = %s"
         cursor.execute(sql, (cpf,))
         con.commit()
         return cursor.rowcount > 0
+        
+    except Exception as e:
+        con.rollback()
+        raise
     finally:
         cursor.close()
         con.close()
         
+def alterar(nome, telefone, cpf):
+    if not validar_cpf(cpf):
+        raise ValueError(f"O CPF {cpf} não consta no banco de dados.")
+    
+    con = conectar()
+    cursor = con.cursor()
+    try:
+        sql = "UPDATE clientes SET nome = %s, telefone = %s WHERE cpf = %s"
+        cursor.execute(sql, (nome, telefone, cpf))
+        con.commit()
+        return cursor.rowcount > 0
+    except Exception as e:
+        con.rollback()
+        raise
+    finally:
+        cursor.close()
+        con.close()
+
 
 def listar_clientes():
     con = conectar()
@@ -54,13 +88,3 @@ def listar_clientes():
         cursor.close()
         con.close()
 
-def alterar(nome, telefone, cpf):
-    con = conectar()
-    cursor = con.cursor()
-    sql = "UPDATE clientes SET nome = %s, telefone = %s WHERE cpf = %s"
-    try:
-        cursor.execute(sql, (nome, telefone, cpf))
-        con.commit()
-        return cursor.rowcount > 0
-    finally:
-        con.close

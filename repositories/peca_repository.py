@@ -17,6 +17,8 @@ def cadastrar_peca_db(peca):
         cursor.execute(sql, valores)
         con.commit()
         return cursor.lastrowid
+    except Exception as e:
+        raise        
     finally:
         cursor.close()
         con.close()
@@ -31,6 +33,8 @@ def excluir_peca(peca_id):
         cursor.execute(sql, (peca_id,))
         con.commit()
         return cursor.rowcount > 0
+    except Exception as e:
+        raise
     finally:
         cursor.close()
         con.close()
@@ -57,6 +61,8 @@ def alterar_peca(peca_id, nome, categoria, quantidade, estado, preco):
         cursor.execute(sql, (valores))
         con.commit()
         return True
+    except Exception as e:
+        raise
     finally:
         cursor.close()
         con.close

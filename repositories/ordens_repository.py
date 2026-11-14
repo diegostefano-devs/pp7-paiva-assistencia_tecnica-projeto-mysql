@@ -64,6 +64,9 @@ def abrir_os(ordem, id_tecnico):
         cursor.execute(sql, valores)
         con.commit()
         return cursor.lastrowid
+    except Exception as e:
+        con.rollback()
+        raise e
     finally:
         cursor.close()
         con.close()
