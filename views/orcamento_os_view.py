@@ -1,6 +1,8 @@
 import customtkinter as ctk
 from controllers.itens_ordens_controller import abrir_orcamento
 from controllers.peca_controllers import mostrar_uma_peca
+from controllers.ordens_controller import mostrar_uma_os
+from controllers.tecnico_controllers import mostrar_um_tecnico
 
 ctk.set_appearance_mode('dark')
 app = ctk.CTk()
@@ -31,8 +33,26 @@ label_peca = ctk.CTkLabel(app, text="", font=("Roboto", 14))
 label_peca.place(x=860, y=145)
 label_peca.lift()
 
+label_valor_total_peca = ctk.CTkLabel(app, text="", font=("Roboto", 14))
+label_valor_total_peca.place(x=860, y=190)
+
+label_info_os = ctk.CTkLabel(app, text="", font=("Roboto", 14))
+label_info_os.place(x=860, y=90)
+
+def buscar_os(event=None):
+    if not entry_id_os.get():
+        label_info_os.configure(text=f'Informe a OS.', text_color="#ff5555")
+    ordem = mostrar_uma_os(entry_id_os.get())
+
+    if ordem:
+        tecnico = mostrar_um_tecnico(ordem['id_tecnico'])
+        label_info_os.configure(text=f"ID: {tecnico['id']} - Técnico: {tecnico['nome']}", text_color="#50fa7b")
+entry_id_os.bind("<KeyRelease>", buscar_os)
 
 def buscar_peca(event=None):
+    if not entry_id_os.get():
+        label_peca.configure(text=f'Informe uma peça.', text_color="#ff5555")
+
     id_peca = mostrar_uma_peca(entry_id_peca.get())
 
     if id_peca:
@@ -40,9 +60,18 @@ def buscar_peca(event=None):
     else:
         label_peca.configure(text=f'Não encontrado', text_color="#ff5555")
 
-entry_id_peca.bind("<KeyRelease>", buscar_peca)
+entry_id_peca.bind("<FocusOut>", buscar_peca)
 
-# def total_valor_pecas():
+def total_valor_pecas(event=None):
+    peca = mostrar_uma_peca(entry_id_peca.get())
+    quantidade = (entry_quantidade.get())
+
+    if peca:
+        total = float(peca['preco']) * int(quantidade or 0)
+        label_valor_total_peca.configure(text=f"Valor total: {total:.2f}", text_color="#50fa7b")
+entry_quantidade.bind("<KeyRelease>", total_valor_pecas)
+
+
         
 def abrir_orcamento():
     id_os = entry_id_os.get()

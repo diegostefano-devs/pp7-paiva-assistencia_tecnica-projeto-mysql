@@ -22,6 +22,16 @@ def cadastrar(tecnico):
         cursor.close()
         con.close()
 
+def buscar_tecnico(id_tecnico):
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM tecnicos WHERE id = %s", (id_tecnico,))
+        return cursor.fetchone()
+    finally:
+        cursor.close()
+        con.close()
+
 
 def listar_tecnico():
     con = conectar()

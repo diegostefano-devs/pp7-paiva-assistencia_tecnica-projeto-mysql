@@ -102,6 +102,16 @@ def listar_os():
         cursor.close()
         con.close()
 
+def buscar_os(id_os):
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT * FROM ordens_servico WHERE id = %s", (id_os, ))
+        return cursor.fetchone()
+    finally:
+        cursor.close()
+        con.close()
+
 def listar_os_status(status):
     con = conectar()
     cursor = con.cursor(dictionary=True)

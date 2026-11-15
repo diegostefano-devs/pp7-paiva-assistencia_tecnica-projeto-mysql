@@ -4,7 +4,8 @@ from repositories.tecnico_repositories import (
     listar_tecnico,
     validar_cpf,
     excluir,
-    alterar
+    alterar,
+    buscar_tecnico
 )
 
 def cadastrar_tecnico(cpf, nome, telefone):
@@ -55,3 +56,18 @@ def atualizar_tecnico(nome, telefone, cpf):
     if not sucesso:
         raise Exception("Erro ao atualizar o técnico.")
     return True
+
+def mostrar_um_tecnico(id_tecnico):
+    if not id_tecnico:
+        raise ValueError("Informe o ID da OS.")
+
+    try: 
+        ordem = buscar_tecnico(id_tecnico)
+
+        if not ordem:
+            print("Técnico não encontrado.")
+            return None
+        return ordem
+    except ValueError as e:
+        print(f"Atenção: {e}")
+    

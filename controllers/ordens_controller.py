@@ -1,5 +1,5 @@
 from models.ordens_model import criar_os
-from repositories.ordens_repository import buscar_tec, abrir_os, validar_id_cliente, listar_os, listar_os_status, finalizar_os, validar_os
+from repositories.ordens_repository import buscar_tec, abrir_os, validar_id_cliente, listar_os, listar_os_status, finalizar_os, validar_os, buscar_os
 
 def abrir_ordem(id_cliente, aparelho, problema):
     try:
@@ -43,3 +43,17 @@ def listar_os_por_status(status):
         listar_os_status(status)
     except ValueError as erro:
         print(f"Erro ao realizar operação: {erro}")
+
+def mostrar_uma_os(id_os):
+    if not id_os:
+        raise ValueError("Informe o ID da OS.")
+
+    try: 
+        ordem = buscar_os(id_os)
+        if not ordem:
+            print("Ordem de Serviço não encontrada.")
+            return None
+        return ordem
+    except ValueError as e:
+        print(f"Atenção: {e}")
+
