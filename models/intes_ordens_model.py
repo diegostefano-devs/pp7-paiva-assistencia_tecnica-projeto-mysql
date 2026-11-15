@@ -8,6 +8,4 @@ def criar_itens_os (id_os, id_peca, quantidade, preco_uni):
     return {
         "id_os" : id_os,
         "id_peca" : id_peca,
-        "quantidade" : quantidade,
-        "preco_uni" : preco_uni
-    }
+        "quantidade" : quantidade    }

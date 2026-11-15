@@ -1,5 +1,5 @@
 from models.peca_model import criar_peca
-from repositories.peca_repository import cadastrar_peca_db, listar_peca, excluir_peca, alterar_peca
+from repositories.peca_repository import cadastrar_peca_db, listar_peca, excluir_peca, alterar_peca, buscar_peca
 
 def cadastrar_peca(nome, categoria, quantidade, estado, preco):
 
@@ -16,7 +16,19 @@ def cadastrar_peca(nome, categoria, quantidade, estado, preco):
         raise ValueError("Erro: Não foi possível cadastrar peça!")
     return True
 
+def mostrar_uma_peca(id_peca):
+    if not id_peca:
+        raise ValueError("Informe o ID da peça.")
 
+    try:
+        peca = buscar_peca(id_peca)
+        if not peca:
+            print("Peça não encontrada")
+        return peca
+    except ValueError as e:
+        print(f"Atenção: {e}")
+        return None
+        
 
 def atualizar_peca(peca_id, nome, categoria, quantidade, estado, preco):
     if not peca_id:

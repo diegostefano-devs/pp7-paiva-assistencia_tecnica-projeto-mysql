@@ -12,12 +12,13 @@ for i, campo in enumerate(['ID Cliente', 'Aparelho', "Tecnico", 'Problema']):
     ctk.CTkLabel(app, text=f"{campo}: ", font=("Roboto", 20, 'bold')).grid(
         row=i, column=0, sticky='e', pady=15, padx=10)
 
+entry_modelo = ctk.CTkEntry(app, width=350, placeholder_text=f"Informe o modelo do aparelho: ", font=("Roboto", 20))
+entry_modelo.grid(row=1, column=1, sticky='w', pady=15, padx=(0, 20))
 
 entry_cliente = ctk.CTkEntry(app, width=350, placeholder_text="Digite o ID do cliente: ", font=("Roboto", 20))
 entry_cliente.grid(row=0, column=1, sticky='w', pady=15, padx=(0, 20))
 
-entry_modelo = ctk.CTkEntry(app, width=350, placeholder_text=f"Informe o modelo do aparelho: ", font=("Roboto", 20))
-entry_modelo.grid(row=1, column=1, sticky='w', pady=15, padx=(0, 20))
+
 
 problema_textbox = ctk.CTkTextbox(app, height=200, width=350)
 problema_textbox.grid(row = 2, column=1, sticky="w", pady=15, padx=(0, 20))
@@ -57,7 +58,7 @@ def salvar_os():
         entry_modelo.delete(0, "end")
         problema_textbox.delete("1.0", "end")
     else:
-        label_aviso.configure(text="Erro ao abrir OS! Verifique o ID do", text_color="#ff5555")
+        label_aviso.configure(text="Erro ao abrir OS! Verifique o ID do Cliente", text_color="#ff5555")
 
 
 btn_salvar = ctk.CTkButton(app, text="Abrir OS", font=("Roboto", 18, 'bold'), height=40, command=salvar_os)

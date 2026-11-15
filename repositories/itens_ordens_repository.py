@@ -4,10 +4,19 @@ def add_itens_ordens(itens_ordens, valor_fixo):
     con = conectar()
     cursor = con.cursor()
     try:
+        sql_peca = "SELECT preco FROM pecas WHERE id = %s"
+        cursor.execute(sql_peca, (itens_ordens['id_peca'],))
+        resultado_peca = cursor.fetchone
+
+        if not resultado_peca:
+            raise ValueError("Peça não encontrada no banco de dados.")
+
+        preco_uni = resultado_peca[0]
+
         sql = "INSERT INTO itens_ordem (id_os, id_peca, quantidade, preco_uni) VALUES (%s, %s, %s, %s)"
         valores = (
             itens_ordens['id_os'], itens_ordens['id_peca'],
-            itens_ordens['quantidade'], itens_ordens['preco_uni']
+            itens_ordens['quantidade'], preco_uni
         )
         cursor.execute(sql, valores)
 
@@ -18,6 +27,7 @@ def add_itens_ordens(itens_ordens, valor_fixo):
 
         sql_ordem = "UPDATE ordens_servico SET status = 'AGUARDANDO APROVACAO', valor_fixo = %s, valor_total = %s WHERE id = %s" 
         cursor.execute(sql_ordem, (valor_fixo, total_pecas, itens_ordens['id_os']))
+        
         con.commit()
     except Exception as e:
         con.rollback()

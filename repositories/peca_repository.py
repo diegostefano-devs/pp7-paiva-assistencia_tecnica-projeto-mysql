@@ -40,6 +40,17 @@ def excluir_peca(peca_id):
         con.close()
 
 
+
+def buscar_peca(id_peca):
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT nome, preco FROM pecas WHERE id = %s", (id_peca, ))
+        return cursor.fetchone()
+    finally:
+        cursor.close()
+        con.close()
+
 def listar_peca():
     con = conectar()
     cursor = con.cursor(dictionary=True)

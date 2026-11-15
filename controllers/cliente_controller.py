@@ -21,6 +21,8 @@ def mostrar_um_cliente(id_cliente):
     
     try:
         cliente = buscar_cliente(id_cliente)
+        if not cliente:
+            print("Cliente não encontrado.")
         return cliente
     except ValueError as erro:
         print(f"Atenção: {erro}")
