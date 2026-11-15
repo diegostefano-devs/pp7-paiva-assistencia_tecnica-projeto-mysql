@@ -4,6 +4,8 @@ from repositories.ordens_repository import buscar_tec, abrir_os, validar_id_clie
 def abrir_ordem(id_cliente, aparelho, problema):
     try:
         id_do_cliente = validar_id_cliente(id_cliente)
+        if isinstance(id_do_cliente, tuple):
+            id_do_cliente = id_do_cliente[0]
 
         dados_os = criar_os(id_do_cliente, aparelho, problema)
 

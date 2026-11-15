@@ -1,5 +1,5 @@
 from models.cliente_model import criar_cliente
-from repositories.cliente_repository import cadastrar, validar_cpf, listar_clientes, excluir, alterar
+from repositories.cliente_repository import cadastrar, validar_cpf, listar_clientes, excluir, alterar, buscar_cliente
 
 def cadastrar_cliente(cpf, nome, telefone):
     try:
@@ -14,6 +14,17 @@ def cadastrar_cliente(cpf, nome, telefone):
 def clientes():
     lista = listar_clientes()
     return lista if lista else []
+
+def mostrar_um_cliente(id_cliente):
+    if not id_cliente or not id_cliente.strip():
+        raise ValueError("Informe o CPF para excluir.")
+    
+    try:
+        cliente = buscar_cliente(id_cliente)
+        return cliente
+    except ValueError as erro:
+        print(f"Atenção: {erro}")
+        return None
 
 def excluir_cliente(cpf):
     if not cpf or not cpf.strip():

@@ -88,3 +88,14 @@ def listar_clientes():
         cursor.close()
         con.close()
 
+def buscar_cliente(id_cliente):
+    con = conectar()
+    cursor = con.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT id, nome FROM clientes WHERE id = %s", (id_cliente, ))
+        return cursor.fetchone()
+    finally:
+        cursor.close()
+        con.close()
+
+

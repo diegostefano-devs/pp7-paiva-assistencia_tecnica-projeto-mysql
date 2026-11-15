@@ -17,22 +17,24 @@ def validar_os(id_os):
         con.close()
 
 
-
 def buscar_tec():
     con = conectar()
     cursor = con.cursor()
-  
-    sql = """SELECT t.id
-                FROM tecnicos t
-                LEFT JOIN ordens_servico os ON t.id = os.id_tecnico AND os.status != "FINALIZADOS"
-                GROUP BY t.id
-                ORDER BY COUNT(os.id) ASC
-                LIMIT 1"""
-    cursor.execute(sql)
-    resultado = cursor.fetchone()
-    if not resultado:
-        raise Exception("Nenhum técnico cadastrado no banco de dados.")
-    return resultado[0]
+    try:
+        sql = """SELECT t.id
+                    FROM tecnicos t
+                    LEFT JOIN ordens_servico os ON t.id = os.id_tecnico AND os.status != "FINALIZADOS"
+                    GROUP BY t.id
+                    ORDER BY COUNT(os.id) ASC
+                    LIMIT 1"""
+        cursor.execute(sql)
+        resultado = cursor.fetchone()
+        if not resultado:
+            raise Exception("Nenhum técnico cadastrado no banco de dados.")
+        return resultado[0]
+    finally:
+        cursor.close()
+        con.close()
 
 def validar_id_cliente(id_cliente):
     con = conectar()
@@ -66,7 +68,7 @@ def abrir_os(ordem, id_tecnico):
         return cursor.lastrowid
     except Exception as e:
         con.rollback()
-        raise e
+        raise
     finally:
         cursor.close()
         con.close()

@@ -63,17 +63,10 @@ CREATE TABLE IF NOT EXISTS peca_encomendada (
     CONSTRAINT fk_encomenda_os FOREIGN KEY (id_os) REFERENCES ordens_servico(id)
 );
 
-use assistencia_tecnica;
-SELECT * FROM tecnicos;
 SELECT * FROM clientes;
 SELECT * FROM ordens_servico;
-SELECT * FROM itens_ordem;
-SELECT * FROM pecas;
+SELECT * FROM tecnicos;
 
-
-
-INSERT INTO pecas (nome, categoria, quantidade, estado, preco) VALUES ("PEÇA TERCEIRA", "DE PEÇAS", 5, "NOVO", 25.5);
-INSERT INTO tecnicos (cpf, nome, telefone) VALUES ("12334567890", "Jorge", "09876543212");
 
 
 
