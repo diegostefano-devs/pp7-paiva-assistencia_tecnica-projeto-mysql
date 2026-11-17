@@ -3,6 +3,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 import customtkinter as ctk
 from views.ordens_view.ordens_view import abrir_os_view
 from views.ordens_view.orcamento_os_view import orcamento_view
+from views.ordens_view.finalizar_os_view import aprovar_orcamento
 
 ctk.set_appearance_mode('dark')
 
@@ -24,21 +25,32 @@ frame_centro.pack(side="right", expand=True, fill=ctk.BOTH)
 frame_formulario = ctk.CTkFrame(frame_centro, fg_color="transparent")
 frame_formulario.pack(expand=True)
 
-def apagar_formulario():
-   for widget in frame_formulario.winfo_children():
-        widget.destroy()
+def apagar_formulario(frame):
+    try:
+        if frame.winfo_exists():
+            for widget in frame.winfo_children():
+                widget.destroy()
+    except Exception:
+        pass
 
 def abrir_os():
-    apagar_formulario()
+    apagar_formulario(frame_formulario)
     abrir_os_view(frame_formulario)
 
 def definir_orcamento():
-    apagar_formulario()
+    apagar_formulario(frame_formulario)
     orcamento_view(frame_formulario)
+
+def aprovar_recusar_orcamento():
+    apagar_formulario(frame_formulario)
+    aprovar_orcamento(frame_formulario)
+
 
 bottom_abrir_os = ctk.CTkButton(frame_lateral, text='Abrir OS', font=("Roboto", 16, "bold"), command=abrir_os)
 bottom_abrir_os.pack(pady=10, padx=20)
 bottom_orcamento = ctk.CTkButton(frame_lateral, text='Orçamento', font=("Roboto", 16, "bold"), command=definir_orcamento)
 bottom_orcamento.pack(pady=10, padx=20)
+bottom_aprovar_recusar = ctk.CTkButton(frame_lateral, text='Aprovar/Recusar', font=("Roboto", 16, "bold"), command=aprovar_recusar_orcamento)
+bottom_aprovar_recusar.pack(pady=10, padx=20)
 
 app.mainloop()
