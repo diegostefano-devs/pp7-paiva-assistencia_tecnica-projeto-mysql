@@ -20,7 +20,7 @@ def add_itens_ordens(itens_ordens, valor_fixo):
         )
         cursor.execute(sql, valores)
 
-        sql_soma = "SELECT SUM(quantidade + preco_uni) FROM itens_ordem WHERE id_os = %s"
+        sql_soma = "SELECT SUM(quantidade * preco_uni) FROM itens_ordem WHERE id_os = %s"
         cursor.execute(sql_soma, (itens_ordens['id_os'],))
         resultado_soma = cursor.fetchone()[0]
         total_pecas = resultado_soma if resultado_soma is not None else 0
@@ -29,6 +29,7 @@ def add_itens_ordens(itens_ordens, valor_fixo):
         cursor.execute(sql_ordem, (valor_fixo, total_pecas, itens_ordens['id_os']))
         
         con.commit()
+        return True
     except Exception as e:
         con.rollback()
         raise e

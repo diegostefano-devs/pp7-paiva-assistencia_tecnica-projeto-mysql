@@ -60,7 +60,7 @@ def aprovar_orcamento(frame_formulario):
             tecnico = mostrar_um_tecnico(ordem['id_tecnico'])
             cliente = mostrar_um_cliente(ordem['id_cliente'])
             aviso.configure(
-                    text=f"Cliente: {cliente['nome']} --- Técnico: {tecnico['nome']}\nAparelho: {ordem['aparelho']}\nValor Fixo (Mão de Obra): {ordem['valor_fixo']}\nValor Total: {total_orcamento}", text_color="#50fa7b")
+                    text=f"Cliente: {cliente['nome']} --- Técnico: {tecnico['nome']}\nAparelho: {ordem['aparelho']}\nValor Fixo (Mão de Obra): {ordem['valor_fixo']}\nValor Total (Peça e Mão de Obra): {total_orcamento}", text_color="#50fa7b")
 
         except Exception:
             aviso.configure(text="OS sem orçamento.", text_color="#ff5555")
@@ -83,8 +83,8 @@ def aprovar_orcamento(frame_formulario):
             return
         
         resultado = finalizar_ordem_de_servico(id_os, status)
-        if resultado is not None:            
-            label_aviso.configure(mensagem)
+        if resultado:            
+            label_aviso.configure(text=mensagem, text_color="#50fa7b")
             entry_id_os.delete(0, 'end')
         else:
             label_aviso.configure(text="Erro ao realizar ação! Verifique o ID da OS.", text_color="#ff5555")

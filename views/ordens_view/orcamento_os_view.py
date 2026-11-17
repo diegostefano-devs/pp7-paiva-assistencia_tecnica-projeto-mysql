@@ -81,14 +81,16 @@ def orcamento_view(frame):
     def definir_orcamento():
         id_os = entry_id_os.get()
         id_peca = entry_id_peca.get()
-        id_quantidade = entry_id_os.get()
+        id_quantidade = entry_quantidade.get()
+        mao_de_obra = entry_mao_obra.get()
 
         if not id_os or not id_peca or not id_quantidade:
             label_aviso.configure(text='Preenhca todos os campos', text_color="#ff5555")
+            return
 
-        resultado = abrir_orcamento(id_os, id_peca, id_quantidade)
+        resultado = abrir_orcamento(id_os, id_peca, id_quantidade, mao_de_obra)
 
-        if resultado is not None:
+        if resultado:
             print('Orçamento enviado!')
 
             label_aviso.configure(text='Orçamento enviado com suecsso!', text_color="#50fa7b" )
@@ -96,11 +98,12 @@ def orcamento_view(frame):
             entry_id_peca.delete(0, 'end')
             entry_quantidade.delete(0, 'end')
             entry_mao_obra.delete(0, 'end')
-            # entry_preco_uni.delete(0, 'end')
+        else:
+            label_aviso.configure(text='Erro ao enviar o orçamento', text_color="#ff5555")
 
-    buttom_confirmar_orcamento = ctk.CTkButton(frame, text='Confirmar', font=('Roboto', 20), text_color="#50fa7b", command=definir_orcamento)
+    buttom_confirmar_orcamento = ctk.CTkButton(frame, text='Confirmar', font=('Roboto', 20), command=definir_orcamento)
     buttom_confirmar_orcamento.grid(row=4, column=1, padx=(180, 0))
 
 
-    label_aviso = ctk.CTkLabel(frame, text="", font=('roboto', 30))
-    label_aviso.grid(row=5, column=0)
+    label_aviso = ctk.CTkLabel(frame, text="", font=('roboto', 12))
+    label_aviso.grid(row=5, column=1, sticky='e', padx=15)

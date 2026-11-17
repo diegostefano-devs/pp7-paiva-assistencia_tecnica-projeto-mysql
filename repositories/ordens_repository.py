@@ -79,7 +79,7 @@ def finalizar_os(id_os, status):
     try:
         cursor.execute("UPDATE ordens_servico SET status = %s WHERE id = %s", (status, id_os))
         con.commit()
-        return cursor.rowcount
+        return cursor.rowcount > 0
     except Exception as e:
         con.rollback()
         raise e

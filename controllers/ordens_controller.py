@@ -24,12 +24,16 @@ def finalizar_ordem_de_servico(ordem_id, status):
     try:
         validar_os(ordem_id)
 
-        finalizar_os(ordem_id, status)
-        print("Operação concluída!")
+        resultado = finalizar_os(ordem_id, status)
+        if resultado:
+            print("Operação Concluída.")
+        return resultado
     except ValueError as observacao:
         print(f"Erro ao realizar operação: {observacao}")
+        return False
     except Exception as erro:
         print(f"Erro ao abrir OS no banco: {erro}")
+        return False
 
 def listar_todas_os():
     try:
