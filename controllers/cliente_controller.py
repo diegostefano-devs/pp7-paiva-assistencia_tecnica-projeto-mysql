@@ -16,7 +16,7 @@ def clientes():
     return lista if lista else []
 
 def mostrar_um_cliente(id_cliente):
-    if not id_cliente or not id_cliente.strip():
+    if not id_cliente:
         raise ValueError("Informe o CPF para excluir.")
     
     try:

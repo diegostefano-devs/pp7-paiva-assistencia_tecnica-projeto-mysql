@@ -10,6 +10,7 @@ frame.title('Orçamento')
 frame.geometry('800x600')
 
 
+
 def orcamento_view(frame):
     label_titulo = ctk.CTkLabel(frame, text='ORÇAMENTO', font=('Roboto', 30, 'bold')).grid(row=0, column=2,padx=(100, 0), pady=(10, 35))
 
@@ -41,8 +42,6 @@ def orcamento_view(frame):
 
     label_valor_total_peca = ctk.CTkLabel(frame, text="", font=("Roboto", 10))
     label_valor_total_peca.place(x=150, y=183)
-
-
 
 
     def buscar_os(event=None):
