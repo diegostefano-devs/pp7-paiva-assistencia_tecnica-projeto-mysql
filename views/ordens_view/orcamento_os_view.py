@@ -78,7 +78,7 @@ def orcamento_view(frame):
 
 
             
-    def abrir_orcamento():
+    def definir_orcamento():
         id_os = entry_id_os.get()
         id_peca = entry_id_peca.get()
         id_quantidade = entry_id_os.get()
@@ -86,7 +86,7 @@ def orcamento_view(frame):
         if not id_os or not id_peca or not id_quantidade:
             label_aviso.configure(text='Preenhca todos os campos', text_color="#ff5555")
 
-        resultado = abrir_orcamento()
+        resultado = abrir_orcamento(id_os, id_peca, id_quantidade)
 
         if resultado is not None:
             print('Orçamento enviado!')
@@ -98,7 +98,7 @@ def orcamento_view(frame):
             entry_mao_obra.delete(0, 'end')
             # entry_preco_uni.delete(0, 'end')
 
-    buttom_confirmar_orcamento = ctk.CTkButton(frame, text='Confirmar', font=('Roboto', 20), text_color="#50fa7b", command=abrir_orcamento)
+    buttom_confirmar_orcamento = ctk.CTkButton(frame, text='Confirmar', font=('Roboto', 20), text_color="#50fa7b", command=definir_orcamento)
     buttom_confirmar_orcamento.grid(row=4, column=1, padx=(180, 0))
 
 

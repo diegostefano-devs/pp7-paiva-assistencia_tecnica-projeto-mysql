@@ -56,7 +56,7 @@ def aprovar_orcamento(frame_formulario):
             total_orcamento = ordem['valor_fixo'] + ordem['valor_total']
             if total_orcamento == 0:
                 aviso.configure(text="OS sem orçamento.", text_color="#ff5555")
-                return
+                return None
             tecnico = mostrar_um_tecnico(ordem['id_tecnico'])
             cliente = mostrar_um_cliente(ordem['id_cliente'])
             aviso.configure(
@@ -72,10 +72,18 @@ def aprovar_orcamento(frame_formulario):
 
         if not id_os:
             label_aviso.configure(text="Informe o ID da OS", text_color="#ff5555")
+            return
 
+        ordem = mostrar_uma_os(id_os)
+        if not ordem:
+            label_aviso.configure(text="OS não encontrada.", text_color="#ff5555")
+            return
+        if ordem['valor_fixo'] + ordem['valor_total'] == 0:
+            label_aviso.configure(text="OS sem orçamento.", text_color="#ff5555")
+            return
+        
         resultado = finalizar_ordem_de_servico(id_os, status)
-        if resultado is not None:
-
+        if resultado is not None:            
             label_aviso.configure(mensagem)
             entry_id_os.delete(0, 'end')
         else:
