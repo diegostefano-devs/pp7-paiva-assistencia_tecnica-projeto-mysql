@@ -44,9 +44,11 @@ def listar_todas_os():
 
 def listar_os_por_status(status):
     try:
-        listar_os_status(status)
+        resultado = listar_os_status(status)
+        return resultado
     except ValueError as erro:
         print(f"Erro ao realizar operação: {erro}")
+        return[]
 
 def mostrar_uma_os(id_os):
     if not id_os:

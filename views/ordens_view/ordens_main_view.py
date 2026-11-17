@@ -4,6 +4,7 @@ import customtkinter as ctk
 from views.ordens_view.ordens_view import abrir_os_view
 from views.ordens_view.orcamento_os_view import orcamento_view
 from views.ordens_view.finalizar_os_view import aprovar_orcamento
+from views.ordens_view.ordens_listar_view import listar_ordens
 
 ctk.set_appearance_mode('dark')
 
@@ -44,7 +45,9 @@ def definir_orcamento():
 def aprovar_recusar_orcamento():
     apagar_formulario(frame_formulario)
     aprovar_orcamento(frame_formulario)
-
+def mostrar_ordens_servico():
+    apagar_formulario(frame_formulario)
+    listar_ordens(frame_centro)
 
 bottom_abrir_os = ctk.CTkButton(frame_lateral, text='Abrir OS', font=("Roboto", 16, "bold"), command=abrir_os)
 bottom_abrir_os.pack(pady=10, padx=20)
@@ -52,5 +55,6 @@ bottom_orcamento = ctk.CTkButton(frame_lateral, text='Orçamento', font=("Roboto
 bottom_orcamento.pack(pady=10, padx=20)
 bottom_aprovar_recusar = ctk.CTkButton(frame_lateral, text='Aprovar/Recusar', font=("Roboto", 16, "bold"), command=aprovar_recusar_orcamento)
 bottom_aprovar_recusar.pack(pady=10, padx=20)
-
+bottom_mostrar = ctk.CTkButton(frame_lateral, text="Listar OS's", font=("Roboto", 16, "bold"), command=mostrar_ordens_servico)
+bottom_mostrar.pack(pady=10, padx=20)
 app.mainloop()

@@ -3,7 +3,8 @@ from controllers.cliente_controller import cadastrar_cliente
 from controllers.itens_ordens_controller import abrir_orcamento
 # from views.ordens_view.ordens_view import salvar_os
 # from views.ordens_view.orcamento_os_view import abrir_orcamento
-import views.ordens_view.finalizar_os_view 
+# import views.ordens_view.finalizar_os_view 
+# import views.ordens_view.ordens_listar
 
 # abrir_orcamento()
 
