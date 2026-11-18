@@ -1,9 +1,10 @@
 import customtkinter as ctk
 
 cpf_excluir = None
+lbl_aviso_exc = None
 
 def exibir_tela_excluir(frame_centro):
-    global cpf_excluir
+    global cpf_excluir, lbl_aviso_exc
     
     for widget in frame_centro.winfo_children():
         widget.destroy()
@@ -19,16 +20,39 @@ def exibir_tela_excluir(frame_centro):
     cpf_excluir = ctk.CTkEntry(frame_centro, font=("Roboto", 16), width=300)
     cpf_excluir.pack(pady=5)
 
+    
+    lbl_aviso_exc = ctk.CTkLabel(frame_centro, text="", font=("Roboto", 14, "bold"))
+    lbl_aviso_exc.pack(pady=5)
+
     def excluir():
-        print(f"Excluindo cliente CPF: {cpf_excluir.get()}")
+        
+        cpf = cpf_excluir.get()
+
+        
+        if not cpf:
+            lbl_aviso_exc.configure(text="Digite o CPF do cliente!", text_color="#ef4444")
+            return
+
+        try:
+           
+        
+            lbl_aviso_exc.configure(text="Cliente excluído com sucesso!", text_color="#22c55e") 
+            print(f"Excluindo cliente CPF: {cpf}")
+            
+            
+            cpf_excluir.delete(0, 'end')
+            
+        except Exception as erro:
+            lbl_aviso_exc.configure(text=f"Erro ao excluir: {erro}", text_color="#ef4444")
+            print(f"Erro: {erro}")
 
     ctk.CTkButton(
         frame_centro, 
         text="Confirmar Exclusão", 
         font=("Roboto", 16, "bold"), 
-        fg_color="#2196f3", 
-        hover_color="#1976d2",
+        fg_color="#ef4444", 
+        hover_color="#dc2626",
         text_color="white", 
         width=200,
         command=excluir
-    ).pack(pady=20)
+    ).pack(pady=15)

@@ -24,7 +24,7 @@ frame_centro = ctk.CTkFrame(app, fg_color="#1a1a1a")
 frame_centro.pack(side="right", expand=True, fill=ctk.BOTH)
 
 frame_formulario = ctk.CTkFrame(frame_centro, fg_color="transparent")
-frame_formulario.pack(expand=True)
+frame_formulario.pack(fill='y',expand=True)
 
 def apagar_formulario(frame):
     try:
@@ -47,7 +47,7 @@ def aprovar_recusar_orcamento():
     aprovar_orcamento(frame_formulario)
 def mostrar_ordens_servico():
     apagar_formulario(frame_formulario)
-    listar_ordens(frame_centro)
+    listar_ordens(frame_formulario)
 
 bottom_abrir_os = ctk.CTkButton(frame_lateral, text='Abrir OS', font=("Roboto", 16, "bold"), command=abrir_os)
 bottom_abrir_os.pack(pady=10, padx=20)

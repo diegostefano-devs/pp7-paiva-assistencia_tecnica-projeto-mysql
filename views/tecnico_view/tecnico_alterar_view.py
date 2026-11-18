@@ -3,9 +3,10 @@ import customtkinter as ctk
 cpf_entry_alterar = None
 novo_nome_entry = None
 novo_telefone_entry = None
+lbl_aviso_alt_tec = None
 
 def exibir_tela_alterar(frame_centro):
-    global cpf_entry_alterar, novo_nome_entry, novo_telefone_entry
+    global cpf_entry_alterar, novo_nome_entry, novo_telefone_entry, lbl_aviso_alt_tec
     
     for widget in frame_centro.winfo_children():
         widget.destroy()
@@ -29,8 +30,32 @@ def exibir_tela_alterar(frame_centro):
     novo_telefone_entry = ctk.CTkEntry(frame_centro, font=("Roboto", 16), width=300)
     novo_telefone_entry.pack(pady=5)
 
+    
+    lbl_aviso_alt_tec = ctk.CTkLabel(frame_centro, text="", font=("Roboto", 14, "bold"))
+    lbl_aviso_alt_tec.pack(pady=5)
+
     def alterar():
-        print(f"Alterando técnico CPF: {cpf_entry_alterar.get()}")
+        
+        cpf = cpf_entry_alterar.get()
+        novo_nome = novo_nome_entry.get()
+        novo_telefone = novo_telefone_entry.get()
+
+        
+        if not cpf or not novo_nome or not novo_telefone:
+            lbl_aviso_alt_tec.configure(text="Preencha todos os campos!", text_color="#ef4444")
+
+        try:
+            
+            lbl_aviso_alt_tec.configure(text="Técnico alterado com sucesso!", text_color="#22c55e") 
+            print(f"Alterando técnico CPF: {cpf} para Nome: {novo_nome}, Tel: {novo_telefone}")
+            
+            cpf_entry_alterar.delete(0, 'end')
+            novo_nome_entry.delete(0, 'end')
+            novo_telefone_entry.delete(0, 'end')
+            
+        except Exception as erro:
+            lbl_aviso_alt_tec.configure(text=f"Erro ao alterar: {erro}", text_color="#ef4444")
+            print(f"Erro: {erro}")
 
     ctk.CTkButton(
         frame_centro, 
@@ -41,4 +66,4 @@ def exibir_tela_alterar(frame_centro):
         text_color="white", 
         width=200,
         command=alterar
-    ).pack(pady=20)
+    ).pack(pady=15)

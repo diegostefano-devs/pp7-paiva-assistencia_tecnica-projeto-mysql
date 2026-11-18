@@ -12,26 +12,26 @@ frame.geometry('800x600')
 
 
 def orcamento_view(frame):
-    label_titulo = ctk.CTkLabel(frame, text='ORÇAMENTO', font=('Roboto', 30, 'bold')).grid(row=0, column=2,padx=(100, 0), pady=(10, 35))
+    label_titulo = ctk.CTkLabel(frame, text='ORÇAMENTO', text_color="#1a1a1a", font=('Roboto', 30, 'bold')).grid(row=0, column=1,padx=(100, 0), pady=(10, 35))
 
     for i, campo in enumerate(["ID da OS", "ID da Peça", "Quantidade", "Mão de Obra"]):
         ctk.CTkLabel(frame, text=f'{campo}:', font=("Robuto", 20, 'bold')).grid(
-                row=i, column=0, sticky='e', pady=15, padx=(10, 10))
+                row=i+1, column=0, sticky='e', pady=15, padx=(10, 10))
 
     entry_id_os = ctk.CTkEntry(frame, width=350, placeholder_text='Digite o ID da OS', font=('Roboto', 14))
-    entry_id_os.grid(row=0, column=1, sticky='w', pady=15, padx=(0, 20))
+    entry_id_os.grid(row=1, column=1, sticky='w', pady=15, padx=(0, 20))
 
 
     entry_id_peca = ctk.CTkEntry(frame, width=350, placeholder_text='Digite o ID da Peça', font=('Roboto', 14))
-    entry_id_peca.grid(row=1, column=1, sticky='w', pady=15, padx=(0, 20))
+    entry_id_peca.grid(row=2, column=1, sticky='w', pady=15, padx=(0, 20))
 
 
     entry_quantidade = ctk.CTkEntry(frame, width=350, placeholder_text="Ex: 1", font=('Roboto', 14))
-    entry_quantidade.grid(row=2, column=1, sticky='w', pady=15, padx=(0, 20))
+    entry_quantidade.grid(row=3, column=1, sticky='w', pady=15, padx=(0, 20))
 
 
     entry_mao_obra = ctk.CTkEntry(frame, width=350, placeholder_text="Ex: 120.00", font=('Roboto', 14))
-    entry_mao_obra.grid(row=3, column=1, sticky='w', pady=15, padx=(0, 20))
+    entry_mao_obra.grid(row=4, column=1, sticky='w', pady=15, padx=(0, 20))
 
     label_info_os = ctk.CTkLabel(frame, text="", font=("Roboto", 10))
     label_info_os.place(x=150, y=55)
@@ -102,8 +102,8 @@ def orcamento_view(frame):
             label_aviso.configure(text='Erro ao enviar o orçamento', text_color="#ff5555")
 
     buttom_confirmar_orcamento = ctk.CTkButton(frame, text='Confirmar', font=('Roboto', 20), command=definir_orcamento)
-    buttom_confirmar_orcamento.grid(row=4, column=1, padx=(180, 0))
+    buttom_confirmar_orcamento.grid(row=5, column=1, padx=(180, 0))
 
 
     label_aviso = ctk.CTkLabel(frame, text="", font=('roboto', 12))
-    label_aviso.grid(row=5, column=1, sticky='e', padx=15)
+    label_aviso.grid(row=6, column=1, sticky='e', padx=15)
