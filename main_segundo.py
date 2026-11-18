@@ -6,8 +6,9 @@ from controllers.itens_ordens_controller import abrir_orcamento
 # import views.ordens_view.finalizar_os_view 
 # import views.ordens_view.ordens_listar
 # import views.tecnico_view.tecnico_main_view
-import views.cliente_view.cliente_main_view 
+# import views.cliente_view.cliente_main_view 
 # import views.peca_view.peca_main_view
+import views.tecnico_view.tecnico_main_view
 # abrir_orcamento()
 
 # mostrar_uma_os(4)

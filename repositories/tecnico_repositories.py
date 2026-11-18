@@ -1,4 +1,5 @@
 from database.conexao import conectar
+from mysql.connector import IntegrityError
 
 
 
@@ -17,7 +18,6 @@ def cadastrar(tecnico):
         cursor.execute(sql, valores)
         con.commit()
         return cursor.lastrowid
-
     finally:
         cursor.close()
         con.close()
@@ -69,7 +69,13 @@ def excluir(cpf):
         cursor.execute(sql, (cpf,))
         con.commit()
         return cursor.rowcount > 0
-
+    except IntegrityError:
+        con.rollback()
+        raise ValueError('Técninco está vinculado à uma OS.')
+    
+    except Exception:
+        con.rollback()
+        raise
     finally:
         cursor.close()
         con.close()
