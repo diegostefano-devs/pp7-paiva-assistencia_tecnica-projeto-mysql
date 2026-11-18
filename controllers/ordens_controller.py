@@ -22,7 +22,8 @@ def abrir_ordem(id_cliente, aparelho, problema):
         print(f"Erro ao abrir OS no banco: {erro}")
         raise
 
-def finalizar_ordem_de_servico(ordem_id, status):
+
+def aprovar_ordem_de_servico(ordem_id, status):
     try:
         teste = buscar_os(ordem_id)
 
@@ -42,6 +43,28 @@ def finalizar_ordem_de_servico(ordem_id, status):
     except Exception as erro:
         print(f"Erro ao abrir OS no banco: {erro}")
         raise
+
+def encerrar_ordem_servico(ordem_id, status):
+    try:
+        teste = buscar_os(ordem_id)
+
+        if not teste:
+            raise ValueError(f"OS não encontrada no banco de dados.")
+
+        if teste['status'] != "EM MANUTENÇÃO.":
+            raise ValueError (f"Essa OS ainda não foi iniciada ou já foi finalizada.") 
+
+        resultado = finalizar_os(ordem_id, status)
+        if resultado:
+            print("Operação Concluída.")
+        return resultado
+    except ValueError as observacao:
+        print(f"Erro ao realizar operação: {observacao}")
+        raise
+    except Exception as erro:
+        print(f"Erro ao abrir OS no banco: {erro}")
+        raise
+
 
 def listar_todas_os():
     try:

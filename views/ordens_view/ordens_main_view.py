@@ -1,8 +1,9 @@
 import customtkinter as ctk
 from views.ordens_view.ordens_view import abrir_os_view
 from views.ordens_view.orcamento_os_view import orcamento_view
-from views.ordens_view.finalizar_os_view import aprovar_orcamento
+from views.ordens_view.aprovar_os_view import aprovar_orcamento
 from views.ordens_view.ordens_listar_view import listar_ordens
+from views.ordens_view.finalizar_os_view import finalizar_os
 
 
 def exibir_tela_ordens(container, voltar):
@@ -47,6 +48,10 @@ def exibir_tela_ordens(container, voltar):
         apagar_formulario(frame_formulario)
         listar_ordens(frame_formulario)
 
+    def finalizar_uma_os():
+        apagar_formulario(frame_formulario)
+        finalizar_os(frame_formulario)
+
     bottom_abrir_os = ctk.CTkButton(frame_lateral, text='Abrir OS', font=("Roboto", 16, "bold"), command=abrir_os)
     bottom_abrir_os.pack(pady=10, padx=20)
     bottom_orcamento = ctk.CTkButton(frame_lateral, text='Orçamento', font=("Roboto", 16, "bold"), command=definir_orcamento)
@@ -55,6 +60,8 @@ def exibir_tela_ordens(container, voltar):
     bottom_aprovar_recusar.pack(pady=10, padx=20)
     bottom_mostrar = ctk.CTkButton(frame_lateral, text="Listar OS's", font=("Roboto", 16, "bold"), command=mostrar_ordens_servico)
     bottom_mostrar.pack(pady=10, padx=20)
+    bottom_finalizar = ctk.CTkButton(frame_lateral, text="Finalizar OS", font=("Roboto", 16, "bold"), command=finalizar_uma_os)
+    bottom_finalizar.pack(pady=10, padx=20)
 
     bottom_voltar = ctk.CTkButton(frame_lateral, text="Voltar ao Menu", font=("Roboto", 16, "bold"), command=voltar)
     bottom_voltar.pack(side=ctk.BOTTOM, pady=20, padx=20)

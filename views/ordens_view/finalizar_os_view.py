@@ -1,7 +1,7 @@
 from functools import partial
 
 import customtkinter as ctk
-from controllers.ordens_controller import listar_todas_os, mostrar_uma_os, finalizar_ordem_de_servico
+from controllers.ordens_controller import listar_todas_os, mostrar_uma_os, encerrar_ordem_servico
 from controllers.tecnico_controllers import mostrar_um_tecnico
 from controllers.cliente_controller import mostrar_um_cliente
 
@@ -25,9 +25,7 @@ from controllers.cliente_controller import mostrar_um_cliente
 # frame_formulario = ctk.CTkFrame(frame_centro, fg_color="transparent")
 # frame_formulario.pack(expand=True)
 
-def aprovar_orcamento(frame_formulario):
-    # Faz o frame_formulario ocupar todo o espaço do frame_centro,
-    # assim as posições (place) ficam idênticas às de antes.
+def finalizar_os(frame_formulario):
     frame_formulario.pack_configure(fill=ctk.BOTH, expand=True)
 
     label_os_info = ctk.CTkLabel(frame_formulario, text=f"ID da OS: ", font=("Roboto", 16))
@@ -75,7 +73,7 @@ def aprovar_orcamento(frame_formulario):
             return
 
         try:
-            finalizar_ordem_de_servico(id_os, status)
+            encerrar_ordem_servico(id_os, status)
             
             label_aviso.configure(text=mensagem, text_color="#50fa7b")
             entry_id_os.delete(0, 'end')
@@ -86,11 +84,10 @@ def aprovar_orcamento(frame_formulario):
         except Exception as erro:
             label_aviso.configure(text=f"Erro: {erro}", text_color="#ff5555")   
 
-    bottom_confirmar = ctk.CTkButton(frame_formulario, text='Confirmar', command=lambda: confirmar_os("EM MANUTENÇÃO", "Orçamento aprovado!"))
+    bottom_confirmar = ctk.CTkButton(frame_formulario, text='Confirmar', command=lambda: confirmar_os("FINALIZADA", "Orçamento aprovado!"))
     bottom_confirmar.place(x=400, y=280)
 
-    bottom_recusar = ctk.CTkButton(frame_formulario, text='Recusar', fg_color="#e46e6e", hover_color="#9b3f3f", command=lambda: confirmar_os("ORÇAMENTO NEGADO", "Orçamento Recusado!"))
-    bottom_recusar.place(x=250, y=280)
+
 
 
 # app.mainloop()
