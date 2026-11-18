@@ -40,6 +40,7 @@ def excluir_cliente(cpf):
         return resultado
     except ValueError as erro:
         print(f"Atenção: {erro}")
+        raise
     except Exception as erro:
         print(f"Erro inesperado: {erro}")
         raise

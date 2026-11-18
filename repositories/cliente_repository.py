@@ -51,7 +51,9 @@ def excluir(cpf):
         cursor.execute(sql, (cpf,))
         con.commit()
         return cursor.rowcount > 0
-        
+    except IntegrityError:
+        con.rollback()
+        raise ValueError("Esse Cliente está vinculado à uma OS.")
     except Exception as e:
         con.rollback()
         raise
