@@ -1,4 +1,5 @@
 from database.conexao import conectar
+from mysql.connector import IntegrityError
 
 def cadastrar_peca_db(peca):
     con = conectar()
@@ -33,7 +34,12 @@ def excluir_peca(peca_id):
         cursor.execute(sql, (peca_id,))
         con.commit()
         return cursor.rowcount > 0
+    except IntegrityError:
+        con.rollback()
+        raise ValueError("Esta peça não pode ser excluída porque está vinculada a Ordens de Serviço.")
+    
     except Exception as e:
+        con.rollback()
         raise
     finally:
         cursor.close()

@@ -28,17 +28,49 @@ def mostrar_uma_peca(id_peca):
     except ValueError as e:
         print(f"Atenção: {e}")
         return None
-        
+
+def deletar_peca(id_peca):
+    try:
+        if not id_peca:
+            raise ValueError("Campo obrigatório para atualização!")
+
+        teste = buscar_peca(id_peca)
+        if not teste:
+            raise ValueError ("Peça não cadastrada no banco de dados.")
+
+        resultado = excluir_peca(id_peca)
+        if resultado:
+            print("Peça excluída com sucesso!")
+        return resultado
+    except ValueError as erro:
+        print(f"Atenção: {erro}")
+        raise
+    except Exception as erro:
+        print(f"Erro inesperado: {erro}")
+        raise
+
 
 def atualizar_peca(peca_id, nome, categoria, quantidade, estado, preco):
-    if not peca_id:
-        raise ValueError("Campo obrigatório para atualização!")
+    try:
+        if not peca_id:
+            raise ValueError("Campo obrigatório para atualização!")
 
-    if not nome or not nome.strip() or not categoria or not categoria.strip():
-        raise ValueError("Campo obrigatório!")
+        if not nome or not nome.strip() or not categoria or not categoria.strip():
+            raise ValueError("Campo obrigatório!")
 
-    correto = alterar_peca(peca_id, nome, categoria, quantidade, estado, preco)
+        teste = buscar_peca(peca_id)
+        if not teste:
+            raise ValueError ("Peça não cadastrada no banco de dados.")
+        
+        correto = alterar_peca(peca_id, nome, categoria, quantidade, estado, preco)
+        if correto:
+            print("Peça alterada com sucesso!")
+        return correto
+    except ValueError as erro:
+        print(f"Atenção: {erro}")
+        raise
+    except Exception as erro:
+        print(f'Erro inesperado: {erro}')
+        raise
 
-    if not correto:
-        raise ValueError("Erro: Não foi possível atualizar peças!")
     

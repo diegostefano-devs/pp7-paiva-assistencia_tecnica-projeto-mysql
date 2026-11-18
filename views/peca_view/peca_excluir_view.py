@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from repositories.peca_repository import excluir_peca
+from controllers.peca_controllers import deletar_peca
 
 def exibir_tela_excluir(frame_centro):
     for widget in frame_centro.winfo_children():
@@ -27,14 +27,12 @@ def exibir_tela_excluir(frame_centro):
             return
 
         try:
-            sucesso = excluir_peca(peca_id)
+            deletar_peca(peca_id)
+            lbl_aviso_exc.configure(text="Peça excluída com sucesso!", text_color="#22c55e")
+            id_excluir.delete(0, "end")
 
-            if sucesso:
-                lbl_aviso_exc.configure(text="Peça excluída com sucesso!", text_color="#22c55e")
-                id_excluir.delete(0, "end")
-            else:
-                lbl_aviso_exc.configure(text="Nenhuma peça encontrada com esse ID!", text_color="#ef4444")
-
+        except ValueError as erro:
+            lbl_aviso_exc.configure(text=str(erro), text_color="#ef4444")
         except Exception as erro:
             lbl_aviso_exc.configure(text=f"Erro ao excluir: {erro}", text_color="#ef4444")
 
