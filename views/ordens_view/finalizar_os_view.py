@@ -86,10 +86,10 @@ def aprovar_orcamento(frame_formulario):
         except Exception as erro:
             label_aviso.configure(text=f"Erro: {erro}", text_color="#ff5555")   
 
-    bottom_confirmar = ctk.CTkButton(frame_formulario, text='Confirmar', command=lambda: confirmar_os("Em Manuntenção", "Orçamento aprovado!"))
+    bottom_confirmar = ctk.CTkButton(frame_formulario, text='Confirmar', command=lambda: confirmar_os("EM MANUTENÇÃO", "Orçamento aprovado!"))
     bottom_confirmar.place(x=400, y=280)
 
-    bottom_recusar = ctk.CTkButton(frame_formulario, text='Recusar', fg_color="#e46e6e", hover_color="#9b3f3f", command=lambda: confirmar_os("Orçamento Recusado", "Orçamento Recusado!"))
+    bottom_recusar = ctk.CTkButton(frame_formulario, text='Recusar', fg_color="#e46e6e", hover_color="#9b3f3f", command=lambda: confirmar_os("ORÇAMENTO NEGADO", "Orçamento Recusado!"))
     bottom_recusar.place(x=250, y=280)
 
 
