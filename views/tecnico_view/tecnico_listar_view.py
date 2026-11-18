@@ -1,4 +1,5 @@
 import customtkinter as ctk
+# Importa a função do controller que busca os técnicos cadastrados no MySQL
 from controllers.tecnico_controllers import tecnico
 
 def exibir_tela_listar(frame_centro):
@@ -12,12 +13,12 @@ def exibir_tela_listar(frame_centro):
         text_color="white"
     ).pack(pady=20)
 
-    # Frame para exibir os técnicos
+    # Frame com rolagem para exibir os técnicos
     frame_lista = ctk.CTkScrollableFrame(frame_centro, fg_color="#212121", width=500, height=350)
     frame_lista.pack(pady=10, padx=20, fill=ctk.BOTH, expand=True)
 
     try:
-        # Puxa os dados reais do banco
+        # Puxa os dados reais do banco através do controller
         lista_tecnicos = tecnico()
 
         if not lista_tecnicos:
@@ -28,18 +29,18 @@ def exibir_tela_listar(frame_centro):
                 text_color="gray"
             ).pack(pady=20)
         else:
-            # Percorre os técnicos vindos do banco
+            # Percorre os técnicos vindos do banco e cria um card para cada um
             for tec in lista_tecnicos:
                 card = ctk.CTkFrame(frame_lista, fg_color="#2b2b2b", corner_radius=6)
                 card.pack(fill=ctk.X, pady=5, padx=5)
 
-                
+                # Compatibilidade caso venha em dicionário ou tupla
                 if isinstance(tec, dict):
                     nome = tec.get('nome')
                     cpf = tec.get('cpf')
                     telefone = tec.get('telefone')
                 else:
-                    
+                    # Ajuste a ordem dos índices (ex: [0]=cpf, [1]=nome, [2]=telefone) conforme sua tupla do banco
                     cpf = tec[0]
                     nome = tec[1]
                     telefone = tec[2]

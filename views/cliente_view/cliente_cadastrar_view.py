@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from controllers.cliente_controller import cadastrar_cliente
 
 nome_entry = None
 cpf_entry = None
@@ -52,8 +53,7 @@ def exibir_tela_cadastro(frame_centro):
             return
 
         try:
-            
-            
+            cliente = cadastrar_cliente(cpf, nome, telefone)
             lbl_aviso.configure(text="Cliente cadastrado com sucesso!", text_color="#22c55e") 
             print(f"Sucesso ao capturar: {nome}, {cpf}, {telefone}")
             

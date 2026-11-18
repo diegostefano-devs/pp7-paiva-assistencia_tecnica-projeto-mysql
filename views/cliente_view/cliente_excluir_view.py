@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from controllers.cliente_controller import excluir_cliente
 
 cpf_excluir = None
 lbl_aviso_exc = None
@@ -24,28 +25,26 @@ def exibir_tela_excluir(frame_centro):
     lbl_aviso_exc = ctk.CTkLabel(frame_centro, text="", font=("Roboto", 14, "bold"))
     lbl_aviso_exc.pack(pady=5)
 
-    def excluir():
-        
+    def excluir():    
         cpf = cpf_excluir.get()
 
-        
         if not cpf:
             lbl_aviso_exc.configure(text="Digite o CPF do cliente!", text_color="#ef4444")
             return
-
         try:
-           
-        
-            lbl_aviso_exc.configure(text="Cliente excluído com sucesso!", text_color="#22c55e") 
-            print(f"Excluindo cliente CPF: {cpf}")
-            
-            
+            resultado = excluir_cliente(cpf)
+            if resultado:
+                lbl_aviso_exc.configure(text="Cliente excluído com sucesso!", text_color="#22c55e") 
+                print(f"Excluindo cliente CPF: {cpf}")
+            else:
+                lbl_aviso_exc.configure(text="Cliente não cadastrado.", text_color="#ef4444") 
+
             cpf_excluir.delete(0, 'end')
             
         except Exception as erro:
-            lbl_aviso_exc.configure(text=f"Erro ao excluir: {erro}", text_color="#ef4444")
+            lbl_aviso_exc.configure(text="Esse cliente tem uma OS registrada e não pode ser apagado.", text_color="#ef4444")
             print(f"Erro: {erro}")
-
+            
     ctk.CTkButton(
         frame_centro, 
         text="Confirmar Exclusão", 

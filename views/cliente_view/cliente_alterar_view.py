@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from controllers.cliente_controller import atualizar_cliente    
 
 cpf_entry_alterar = None
 novo_nome_entry = None
@@ -34,26 +35,25 @@ def exibir_tela_alterar(frame_centro):
     lbl_aviso_alt.pack(pady=5)
 
     def alterar():
-       
         cpf = cpf_entry_alterar.get()
         novo_nome = novo_nome_entry.get()
         novo_telefone = novo_telefone_entry.get()
 
-        
         if not cpf or not novo_nome or not novo_telefone:
             lbl_aviso_alt.configure(text="Preencha todos os campos!", text_color="#ef4444") 
 
-        try:
-            
-            
-            lbl_aviso_alt.configure(text="Cliente alterado com sucesso!", text_color="#22c55e") 
-            print(f"Alterando cliente CPF: {cpf} para Nome: {novo_nome}, Tel: {novo_telefone}")
-            
-            
-            cpf_entry_alterar.delete(0, 'end')
-            novo_nome_entry.delete(0, 'end')
-            novo_telefone_entry.delete(0, 'end')
-            
+        try:  
+            resultado = atualizar_cliente(novo_nome, novo_telefone, cpf)
+            if resultado:
+                lbl_aviso_alt.configure(text="Cliente alterado com sucesso!", text_color="#22c55e") 
+                print(f"Alterando cliente CPF: {cpf} para Nome: {novo_nome}, Tel: {novo_telefone}")
+                
+                
+                cpf_entry_alterar.delete(0, 'end')
+                novo_nome_entry.delete(0, 'end')
+                novo_telefone_entry.delete(0, 'end')
+            else:
+                lbl_aviso_alt.configure(text="Cliente não cadastrado.", text_color="#ef4444")
         except Exception as erro:
             lbl_aviso_alt.configure(text=f"Erro ao alterar: {erro}", text_color="#ef4444")
             print(f"Erro: {erro}")

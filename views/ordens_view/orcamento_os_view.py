@@ -4,10 +4,10 @@ from controllers.peca_controllers import mostrar_uma_peca
 from controllers.ordens_controller import mostrar_uma_os
 from controllers.tecnico_controllers import mostrar_um_tecnico
 
-ctk.set_appearance_mode('dark')
-frame = ctk.CTk()
-frame.title('Orçamento')
-frame.geometry('800x600')
+# ctk.set_appearance_mode('dark')
+# frame = ctk.CTk()
+# frame.title('Orçamento')
+# frame.geometry('800x600')
 
 
 
