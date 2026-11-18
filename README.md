@@ -49,14 +49,6 @@ pp7-paiva-assistencia_tecnica-projeto-mysql/
 └── requirements.txt      # Dependências
 ```
 
-| Camada | Responsabilidade |
-|---|---|
-| **View** | Interface gráfica e interação com o usuário |
-| **Controller** | Intermediário entre as ações da interface e os repositories |
-| **Repository** | Executa as operações SQL no banco |
-| **Model** | Representa as entidades |
-
-
 ## Pré-requisitos
 
 - [Python 3](https://www.python.org/downloads/) com `pip`

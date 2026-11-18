@@ -4,8 +4,8 @@ from mysql.connector import Error
 CONFIG = {
     "host": 'localhost',
     "port" : 3306,
-    "user" : "root",
-    "password" : "03141116*Die",
+    "user" : "seu_usuario",
+    "password" : "sua_senha",
     "database" : "assistencia_tecnica"
 }
 
