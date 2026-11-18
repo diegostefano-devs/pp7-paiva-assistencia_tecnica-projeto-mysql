@@ -39,21 +39,21 @@ def exibir_tela_alterar(frame_centro):
         novo_nome = novo_nome_entry.get()
         novo_telefone = novo_telefone_entry.get()
 
-        if not cpf or not novo_nome or not novo_telefone:
-            lbl_aviso_alt.configure(text="Preencha todos os campos!", text_color="#ef4444") 
+        if not cpf or not novo_nome.strip() or not novo_telefone.strip():
+            lbl_aviso_alt.configure(text="Preencha todos os campos!", text_color="#ef4444")
+            return
 
         try:  
-            resultado = atualizar_cliente(novo_nome, novo_telefone, cpf)
-            if resultado:
-                lbl_aviso_alt.configure(text="Cliente alterado com sucesso!", text_color="#22c55e") 
-                print(f"Alterando cliente CPF: {cpf} para Nome: {novo_nome}, Tel: {novo_telefone}")
+            atualizar_cliente(novo_nome, novo_telefone, cpf)
+            lbl_aviso_alt.configure(text="Cliente alterado com sucesso!", text_color="#22c55e") 
+            print(f"Alterando cliente CPF: {cpf} para Nome: {novo_nome}, Tel: {novo_telefone}")
                 
                 
-                cpf_entry_alterar.delete(0, 'end')
-                novo_nome_entry.delete(0, 'end')
-                novo_telefone_entry.delete(0, 'end')
-            else:
-                lbl_aviso_alt.configure(text="Cliente não cadastrado.", text_color="#ef4444")
+            cpf_entry_alterar.delete(0, 'end')
+            novo_nome_entry.delete(0, 'end')
+            novo_telefone_entry.delete(0, 'end')
+        except ValueError as erro:
+            lbl_aviso_alt.configure(text=f"{erro}", text_color="#ef4444")
         except Exception as erro:
             lbl_aviso_alt.configure(text=f"Erro ao alterar: {erro}", text_color="#ef4444")
             print(f"Erro: {erro}")

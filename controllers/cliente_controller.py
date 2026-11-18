@@ -47,15 +47,21 @@ def excluir_cliente(cpf):
     
 
 def atualizar_cliente(nome, telefone, cpf):
-    if not cpf or not cpf.strip():
-        raise ValueError("CPF é obrigatório para atualização.")
-    
     try:
+        if not cpf or not cpf.strip():
+            raise ValueError("CPF é obrigatório para atualização.")
+
+        teste = buscar_cliente(cpf)
+        if not teste:
+            raise ValueError("Cliente não cadastrado no banco de dados.")
+        
         resultado = alterar(nome, telefone, cpf)
-        print("Sucesso! Informações alteradas com êxito.")
+        if resultado:
+            print("Sucesso! Informações alteradas com êxito.")
         return resultado
     except ValueError as erro:
         print(f"Atenção: {erro}")
+        raise
     except Exception as erro:
         print(f"Erro inesperado: {erro}")
         raise
