@@ -46,18 +46,20 @@ def abrir_os_view(frame):
             label_aviso.configure(text="Preencha todos os campos!", text_color="#ff5555")
             return
 
-        resultado = abrir_ordem(id_cliente, aparelho, problema)
 
-        if resultado is not None:
+        try:
+            abrir_ordem(id_cliente, aparelho, problema)
             print("OS aberta com sucesso!", id_cliente, aparelho, problema)
 
             label_aviso.configure(text="OS aberta com sucesso!", text_color="#50fa7b")
             entry_cliente.delete(0, "end")
             entry_modelo.delete(0, "end")
             problema_textbox.delete("1.0", "end")
-        else:
-            label_aviso.configure(text="Erro ao abrir OS! Verifique o ID do Cliente", text_color="#ff5555")
-
+        except ValueError as erro:
+            label_aviso.configure(text=str(erro), text_color="#ff5555")
+            
+        except Exception as erro:
+            label_aviso.configure(text=f"Erro: {erro}", text_color="#ff5555")
 
     btn_salvar = ctk.CTkButton(frame, text="Abrir OS", font=("Roboto", 18, 'bold'), height=40, command=salvar_os)
     btn_salvar.grid(row=3, column=1, sticky="ew", pady=10, padx=(0, 20))

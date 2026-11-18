@@ -17,12 +17,20 @@ def abrir_ordem(id_cliente, aparelho, problema):
         return resultado
     except ValueError as ponto:
         print(f"Erro de validação: {ponto}")
+        raise
     except Exception as erro:
         print(f"Erro ao abrir OS no banco: {erro}")
+        raise
 
 def finalizar_ordem_de_servico(ordem_id, status):
     try:
-        validar_os(ordem_id)
+        teste = buscar_os(ordem_id)
+
+        if not teste:
+            raise ValueError(f"OS não encontrada no banco de dados.")
+
+        if teste['status'] != "AGUARDANDO APROVAÇÃO":
+            raise ValueError (f"Orçamento ainda não foi aplicado ou essa OS já está finalizada.") 
 
         resultado = finalizar_os(ordem_id, status)
         if resultado:
@@ -30,10 +38,10 @@ def finalizar_ordem_de_servico(ordem_id, status):
         return resultado
     except ValueError as observacao:
         print(f"Erro ao realizar operação: {observacao}")
-        return False
+        raise
     except Exception as erro:
         print(f"Erro ao abrir OS no banco: {erro}")
-        return False
+        raise
 
 def listar_todas_os():
     try:

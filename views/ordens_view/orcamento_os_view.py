@@ -88,18 +88,20 @@ def orcamento_view(frame):
             label_aviso.configure(text='Preenhca todos os campos', text_color="#ff5555")
             return
 
-        resultado = abrir_orcamento(id_os, id_peca, id_quantidade, mao_de_obra)
 
-        if resultado:
-            print('Orçamento enviado!')
-
+        try:
+            abrir_orcamento(id_os, id_peca, id_quantidade, mao_de_obra)
             label_aviso.configure(text='Orçamento enviado com suecsso!', text_color="#50fa7b" )
+
             entry_id_os.delete(0, 'end')
             entry_id_peca.delete(0, 'end')
             entry_quantidade.delete(0, 'end')
             entry_mao_obra.delete(0, 'end')
-        else:
-            label_aviso.configure(text='Erro ao enviar o orçamento', text_color="#ff5555")
+
+        except ValueError as erro:
+            label_aviso.configure(text=f'{erro}', text_color="#ff5555")
+        except Exception as erro:
+            label_aviso.configure(text=f'Erro: {erro}', text_color="#ff5555")
 
     buttom_confirmar_orcamento = ctk.CTkButton(frame, text='Confirmar', font=('Roboto', 20), command=definir_orcamento)
     buttom_confirmar_orcamento.grid(row=5, column=1, padx=(180, 0))

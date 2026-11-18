@@ -52,18 +52,12 @@ def aprovar_orcamento(frame_formulario):
             aviso.configure(text="OS não encontrada.", text_color="#ff5555")
             return
 
-        try:
-            total_orcamento = ordem['valor_fixo'] + ordem['valor_total']
-            if total_orcamento == 0:
-                aviso.configure(text="OS sem orçamento.", text_color="#ff5555")
-                return None
-            tecnico = mostrar_um_tecnico(ordem['id_tecnico'])
-            cliente = mostrar_um_cliente(ordem['id_cliente'])
-            aviso.configure(
-                    text=f"Cliente: {cliente['nome']} --- Técnico: {tecnico['nome']}\nAparelho: {ordem['aparelho']}\nValor Fixo (Mão de Obra): {ordem['valor_fixo']}\nValor Total (Peça e Mão de Obra): {total_orcamento}", text_color="#50fa7b")
+        total_orcamento = ordem['valor_fixo'] + ordem['valor_total']
 
-        except Exception:
-            aviso.configure(text="OS sem orçamento.", text_color="#ff5555")
+        tecnico = mostrar_um_tecnico(ordem['id_tecnico'])
+        cliente = mostrar_um_cliente(ordem['id_cliente'])
+        aviso.configure(
+                    text=f"Cliente: {cliente['nome']} --- Técnico: {tecnico['nome']}\nAparelho: {ordem['aparelho']}\nValor Fixo (Mão de Obra): {ordem['valor_fixo']}\nValor Total (Peça e Mão de Obra): {total_orcamento}", text_color="#50fa7b")
             
     entry_id_os.bind("<KeyRelease>", partial(chamar_os, id_os=entry_id_os, aviso=label_info_geral))
 
@@ -74,21 +68,23 @@ def aprovar_orcamento(frame_formulario):
             label_aviso.configure(text="Informe o ID da OS", text_color="#ff5555")
             return
 
-        ordem = mostrar_uma_os(id_os)
-        if not ordem:
-            label_aviso.configure(text="OS não encontrada.", text_color="#ff5555")
+        id_os = entry_id_os.get()
+
+        if not id_os:
+            label_aviso.configure(text="Informe o ID da OS", text_color="#ff5555")
             return
-        if ordem['valor_fixo'] + ordem['valor_total'] == 0:
-            label_aviso.configure(text="OS sem orçamento.", text_color="#ff5555")
-            return
-        
-        resultado = finalizar_ordem_de_servico(id_os, status)
-        if resultado:            
+
+        try:
+            finalizar_ordem_de_servico(id_os, status)
+            
             label_aviso.configure(text=mensagem, text_color="#50fa7b")
             entry_id_os.delete(0, 'end')
-        else:
-            label_aviso.configure(text="Erro ao realizar ação! Verifique o ID da OS.", text_color="#ff5555")
-
+            
+        except ValueError as erro:
+            label_aviso.configure(text=str(erro), text_color="#ff5555")
+            
+        except Exception as erro:
+            label_aviso.configure(text=f"Erro: {erro}", text_color="#ff5555")   
 
     bottom_confirmar = ctk.CTkButton(frame_formulario, text='Confirmar', command=lambda: confirmar_os("Em Manuntenção", "Orçamento aprovado!"))
     bottom_confirmar.place(x=400, y=280)

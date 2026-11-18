@@ -14,8 +14,8 @@ def abrir_orcamento(id_os, id_peca, quantidade, valor_fixo):
         return resultado
     except ValueError as observacao:
         print(f"Erro de validação: {observacao}")
-        return False
+        raise
     except Exception as erro:
         print(f"Erro ao abrir OS no banco: {erro}")
-        return False
+        raise
 

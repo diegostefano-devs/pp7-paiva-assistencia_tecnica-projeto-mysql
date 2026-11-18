@@ -8,8 +8,10 @@ def cadastrar_cliente(cpf, nome, telefone):
         return resultado    
     except ValueError as erro:
         print(f"Atenção: {erro}")
+        raise
     except Exception as erro:
         print(f"Erro inesperado: {erro}")
+        raise
 
 def mostrar_clientes():
     lista = listar_clientes()
