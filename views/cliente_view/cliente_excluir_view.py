@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from controllers.cliente_controller import excluir_cliente
 
 cpf_excluir = None
 lbl_aviso_exc = None
@@ -34,12 +35,13 @@ def exibir_tela_excluir(frame_centro):
             return
 
         try:
-           
-        
-            lbl_aviso_exc.configure(text="Cliente excluído com sucesso!", text_color="#22c55e") 
-            print(f"Excluindo cliente CPF: {cpf}")
-            
-            
+            resultado = excluir_cliente(cpf)
+            if resultado:
+                lbl_aviso_exc.configure(text="Cliente excluído com sucesso!", text_color="#22c55e") 
+                print(f"Excluindo cliente CPF: {cpf}")
+            else:
+                lbl_aviso_exc.configure(text="Cliente não cadastrado.", text_color="#ef4444") 
+
             cpf_excluir.delete(0, 'end')
             
         except Exception as erro:

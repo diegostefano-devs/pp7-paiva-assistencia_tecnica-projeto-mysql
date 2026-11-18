@@ -47,9 +47,6 @@ def exibir_tela_cadastro(frame_centro):
             return
 
         try:
-            
-            
-        
             lbl_aviso_cad_tec.configure(text="Técnico cadastrado com sucesso!", text_color="#22c55e")
             print(f"Salvando: Nome: {nome}, CPF: {cpf}, Tel: {telefone}")
             

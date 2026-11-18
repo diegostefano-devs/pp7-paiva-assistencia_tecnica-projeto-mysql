@@ -4,8 +4,8 @@ from repositories.cliente_repository import cadastrar, validar_cpf, listar_clien
 def cadastrar_cliente(cpf, nome, telefone):
     try:
         cliente = criar_cliente(cpf, nome, telefone)
-        cadastrar(cliente)
-        return True
+        resultado = cadastrar(cliente)
+        return resultado    
     except ValueError as erro:
         print(f"Atenção: {erro}")
     except Exception as erro:
@@ -33,8 +33,9 @@ def excluir_cliente(cpf):
         raise ValueError("Informe o CPF para excluir.")
 
     try:
-        excluir(cpf)
+        resultado = excluir(cpf)
         print("Sucesso: Cliente excluído com sucesso!")
+        return resultado
     except ValueError as erro:
         print(f"Atenção: {erro}")
     except Exception as erro:
