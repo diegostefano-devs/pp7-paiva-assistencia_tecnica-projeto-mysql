@@ -19,7 +19,7 @@ def mostrar_clientes():
 
 def mostrar_um_cliente(id_cliente):
     if not id_cliente:
-        raise ValueError("Informe o CPF para excluir.")
+        raise ValueError("Informe o ID para buscar.")
     
     try:
         cliente = buscar_cliente(id_cliente)
@@ -34,8 +34,10 @@ def excluir_cliente(cpf):
     if not cpf or not cpf.strip():
         raise ValueError("Informe o CPF para excluir.")
 
+    cpf_limpo = cpf.replace(".", "").replace("-", "").strip()
+
     try:
-        resultado = excluir(cpf)
+        resultado = excluir(cpf_limpo)
         print("Sucesso: Cliente excluído com sucesso!")
         return resultado
     except ValueError as erro:
@@ -45,18 +47,17 @@ def excluir_cliente(cpf):
         print(f"Erro inesperado: {erro}")
         raise
 
-    
-
 def atualizar_cliente(nome, telefone, cpf):
     try:
         if not cpf or not cpf.strip():
             raise ValueError("CPF é obrigatório para atualização.")
 
-        teste = buscar_cliente(cpf)
-        if not teste:
+        cpf_limpo = cpf.replace(".", "").replace("-", "").strip()
+
+        if not validar_cpf(cpf_limpo):
             raise ValueError("Cliente não cadastrado no banco de dados.")
         
-        resultado = alterar(nome, telefone, cpf)
+        resultado = alterar(nome, telefone, cpf_limpo)
         if resultado:
             print("Sucesso! Informações alteradas com êxito.")
         return resultado
