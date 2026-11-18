@@ -1,6 +1,4 @@
 import customtkinter as ctk
-
-# 1. IMPORTAÇÃO DA FUNÇÃO DO SEU CONTROLLER
 from controllers.tecnico_controllers import excluir_tecnico
 
 cpf_excluir = None
@@ -21,7 +19,7 @@ def exibir_tela_excluir(frame_centro):
 
     ctk.CTkLabel(frame_centro, text="CPF do Técnico a Excluir:", font=("Roboto", 16), text_color="white").pack(pady=2)
     
-    # Campo de CPF livre de bugs de validação de tecla
+    
     cpf_excluir = ctk.CTkEntry(
         frame_centro, 
         font=("Roboto", 16), 
@@ -30,17 +28,17 @@ def exibir_tela_excluir(frame_centro):
     cpf_excluir.pack(pady=5)
     cpf_excluir.focus()  # Garante o foco inicial para a primeira letra não sumir
 
-    # Label para os avisos direto na tela
+    # avisos direto na tela
     lbl_aviso_exc_tec = ctk.CTkLabel(frame_centro, text="", font=("Roboto", 14, "bold"))
     lbl_aviso_exc_tec.pack(pady=5)
 
     def excluir():
-        # 1. Pega o valor do CPF com .get()
+        
         cpf = cpf_excluir.get().strip()
 
-        # 2. Validações básicas e de tamanho máximo
+        # tamanho máximo
         if not cpf:
-            lbl_aviso_exc_tec.configure(text="Digite o CPF do técnico!", text_color="#ef4444") # Vermelho
+            lbl_aviso_exc_tec.configure(text="Digite o CPF do técnico!", text_color="#ef4444") 
             return
             
         if len(cpf) > 14:
@@ -48,22 +46,19 @@ def exibir_tela_excluir(frame_centro):
             return
 
         try:
-            # 3. CHAMADA REAL DA SUA FUNÇÃO DO CONTROLLER QUE EXECUTA O DELETE NO MYSQL
             excluir_tecnico(cpf)
             
-            # Se deu tudo certo no banco:
+            # Se deu tudo certo
             lbl_aviso_exc_tec.configure(text="Técnico excluído com sucesso!", text_color="#22c55e") # Verde
             
-            # Limpa o campo e foca novamente
+            # Limpa o campo
             cpf_excluir.delete(0, 'end')
             cpf_excluir.focus()
             
         except ValueError as erro:
-            # Captura os erros de validação vindos do controller (ex: CPF não encontrado)
             lbl_aviso_exc_tec.configure(text=str(erro), text_color="#ef4444")
             print(f"Validação: {erro}")
         except Exception as erro:
-            # Se der algum erro de conexão ou de SQL, exibe na tela o motivo exato
             lbl_aviso_exc_tec.configure(text=f"Erro ao excluir no banco: {erro}", text_color="#ef4444")
             print(f"Erro detalhado: {erro}")
 

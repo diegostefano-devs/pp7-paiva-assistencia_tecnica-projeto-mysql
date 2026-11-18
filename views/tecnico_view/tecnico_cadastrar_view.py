@@ -1,7 +1,7 @@
 import customtkinter as ctk
-from controllers.tecnico_controllers import cadastrar_tecnico  # ou atualizar_tecnico dependendo da tela
+from controllers.tecnico_controllers import cadastrar_tecnico  
 
-# Variáveis globais para armazenar os campos
+
 nome_entry = None
 cpf_entry = None
 telefone_entry = None
@@ -20,18 +20,18 @@ def exibir_tela_cadastro(frame_centro):
         text_color="white"
     ).pack(pady=20)
 
-    # --- CAMPO NOME ---
+    
     ctk.CTkLabel(frame_centro, text="Nome:", font=("Roboto", 16), text_color="white").pack(pady=2)
     nome_entry = ctk.CTkEntry(frame_centro, font=("Roboto", 16), width=300)
     nome_entry.pack(pady=5)
-    nome_entry.focus()  # Garante o foco inicial perfeitamente na primeira letra
+    nome_entry.focus()  
 
-    # --- CAMPO CPF ---
+
     ctk.CTkLabel(frame_centro, text="CPF:", font=("Roboto", 16), text_color="white").pack(pady=2)
     cpf_entry = ctk.CTkEntry(frame_centro, font=("Roboto", 16), width=300)
     cpf_entry.pack(pady=5)
 
-    # --- CAMPO TELEFONE ---
+    
     ctk.CTkLabel(frame_centro, text="Telefone:", font=("Roboto", 16), text_color="white").pack(pady=2)
     telefone_entry = ctk.CTkEntry(frame_centro, font=("Roboto", 16), width=300)
     telefone_entry.pack(pady=5)
@@ -44,7 +44,7 @@ def exibir_tela_cadastro(frame_centro):
         cpf = cpf_entry.get().strip()
         telefone = telefone_entry.get().strip()
 
-        # Validações de preenchimento e limites máximos de caracteres de forma segura
+        
         if not nome or not cpf or not telefone:
             lbl_aviso_cad_tec.configure(text="Preencha todos os campos!", text_color="#ef4444") 
             return
@@ -62,7 +62,6 @@ def exibir_tela_cadastro(frame_centro):
             return
 
         try:
-            # Chama o controller
             cadastrar_tecnico(cpf, nome, telefone)
             
             lbl_aviso_cad_tec.configure(text="Técnico cadastrado com sucesso!", text_color="#22c55e")
@@ -71,7 +70,7 @@ def exibir_tela_cadastro(frame_centro):
             nome_entry.delete(0, 'end')
             cpf_entry.delete(0, 'end')
             telefone_entry.delete(0, 'end')
-            nome_entry.focus() # Retorna o foco para o primeiro campo
+            nome_entry.focus()
             
         except ValueError as erro:
             lbl_aviso_cad_tec.configure(text=str(erro), text_color="#ef4444")

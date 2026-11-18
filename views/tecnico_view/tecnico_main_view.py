@@ -1,12 +1,11 @@
 import customtkinter as ctk
 
-# Importando as funções dos outros arquivos
+
 from views.tecnico_view.tecnico_cadastrar_view import exibir_tela_cadastro
 from views.tecnico_view.tecnico_alterar_view import exibir_tela_alterar
 from views.tecnico_view.tecnico_excluir_view import exibir_tela_excluir
 from views.tecnico_view.tecnico_listar_view import exibir_tela_listar
 
-# Configuração inicial do CustomTkinter para o Modo Escuro
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
 
@@ -26,7 +25,7 @@ titulo = ctk.CTkLabel(
 )
 titulo.pack(pady=25)
 
-# Barra lateral esquerda em tom cinza escuro
+# Barra lateral 
 frame_lateral = ctk.CTkFrame(janela, fg_color="#2b2b2b", width=200, corner_radius=0)
 frame_lateral.pack(side=ctk.LEFT, fill=ctk.Y)
 
@@ -34,7 +33,7 @@ frame_lateral.pack(side=ctk.LEFT, fill=ctk.Y)
 frame_centro = ctk.CTkFrame(janela, fg_color="#1a1a1a")
 frame_centro.pack(side=ctk.RIGHT, expand=True, fill=ctk.BOTH)
 
-# Botões da barra lateral chamando as funções dos arquivos importados
+# Botões da barra lateral 
 botao_cadastrar = ctk.CTkButton(
     frame_lateral,
     text="Cadastrar",
