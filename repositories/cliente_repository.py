@@ -60,6 +60,7 @@ def excluir(cpf):
         con.close()
         
 def alterar(nome, telefone, cpf):
+    cpf = cpf.strip()
     if not validar_cpf(cpf):
         raise ValueError(f"O CPF {cpf} não consta no banco de dados.")
     

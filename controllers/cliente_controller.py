@@ -11,7 +11,7 @@ def cadastrar_cliente(cpf, nome, telefone):
     except Exception as erro:
         print(f"Erro inesperado: {erro}")
 
-def clientes():
+def mostrar_clientes():
     lista = listar_clientes()
     return lista if lista else []
 
@@ -40,6 +40,7 @@ def excluir_cliente(cpf):
         print(f"Atenção: {erro}")
     except Exception as erro:
         print(f"Erro inesperado: {erro}")
+        raise
 
     
 
@@ -48,9 +49,11 @@ def atualizar_cliente(nome, telefone, cpf):
         raise ValueError("CPF é obrigatório para atualização.")
     
     try:
-        alterar(nome, telefone, cpf)
+        resultado = alterar(nome, telefone, cpf)
         print("Sucesso! Informações alteradas com êxito.")
+        return resultado
     except ValueError as erro:
         print(f"Atenção: {erro}")
     except Exception as erro:
         print(f"Erro inesperado: {erro}")
+        raise

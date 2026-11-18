@@ -32,7 +32,7 @@ frame_lateral.pack(side=ctk.LEFT, fill=ctk.Y)
 
 # Centro da tela
 frame_centro = ctk.CTkFrame(janela, fg_color="#1a1a1a")
-frame_centro.pack(side=ctk.RIGHT, expand=True, fill=ctk.BOTH)
+frame_centro.pack(side="right", expand=True, fill=ctk.BOTH)
 
 # Botões da barra lateral chamando as funções dos arquivos importados
 botao_cadastrar = ctk.CTkButton(
